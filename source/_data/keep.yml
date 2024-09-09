@@ -117,7 +117,7 @@ scroll:
 # ---------------------------------------------------------------------------------------
 home:
   # Website announcement in home page
-  announcement: 2024年8月28日：主题已更新至 v4.2.2
+  announcement: 2024年8月28日：主题已更新至 v4.2.3
 
   # Show category in home page post block
   category: true # Option values: true | false
