@@ -58,7 +58,7 @@ sudo rm -rf /var/lib/containerd
 ### Docker-compose 安装
 
 ```bash
-curl -L "https://github.com/docker/compose/releases/download/v2.11.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+curl -L "https://github.com/docker/compose/releases/download/v2.29.7/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 ```
@@ -98,37 +98,18 @@ systemctl restart docker
 
 ## 安装 Portainer
 
-### 查看镜像
-
 ```bash
-docker search portainer
+# 创建目录同时进入
+mkdir -p /root/docker/portainer && cd $_
+
+# 下载 docker compose 配置文件
+curl -L https://img.lisir.me/file/docker/portainer/docker-compose.yml
+
+# 启动
+docker compose up -d
 ```
 
-### 拉取镜像
-
-```bash
-docker pull portainer/portainer
-```
-
-### 启动 Portainer
-
-```bash
-docker run --name portainer --restart=always --privileged=true \
-    -p 8000:8000 \
-    -p 9000:9000 \
-    -v /var/run/docker.sock:/var/run/docker.sock \
-    -v /root/data/docker/portainer/data/:/data \
-    -v /root/data/docker/portainer/public/:/public \
-    -d portainer/portainer-ce:latest
-```
-
-> -p 参数映射容器端口到本地 [服务器端口 : 容器内部端口]  
--v 参数持久化容器目录到本地 [服务器路径 : 容器内部路径]  
-9000 端口为 web 管理界面端口，浏览器访问运行Portainer的Docker引擎的端口9000  
--v /var/run/docker.sock:/var/run/docker.sock 默认配置 portainer 所在服务器 Docker 端点  
-该语句用宿主机 9000 端口关联容器中的 9000 端口，并给容器起名为 portainer。执行完该命令之后，使用该机器 IP:PORT 即可访问 Portainer
-
-## 在 Portainer 添加其他服务器 Docker 节点
+## 配置 Docker API
 
 - 在需要添加到 Portainer 的服务器中安装 Docker
 - 安装完成 Docker 后，修改 vim /usr/lib/systemd/system/docker.service 暴露 docker api 接口
@@ -146,6 +127,8 @@ nano /lib/systemd/system/docker.service
 ```bash
 ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H fd:// --containerd=/run/containerd/containerd.sock
 ```
+
+> 🚫 直接开启非加密的 Docker API 是个非常危险的行为！
 
 重启 Docker 服务
 
@@ -171,3 +154,50 @@ WARNING: API is accessible on http://0.0.0.0:2375 without encryption.
 ```
 
 完成以上内容后即可在 Portainer 的 “端点/EndPoint” 菜单中点击 “添加端点/Add EndPoint”, 来添加目标服务器 Docker节点
+
+## 开启 TLS 认证
+
+Docker 自带 API 功能，支持对 Docker 进行管理，但是默认并不启用，而且一般在没有开启加密通信的时候直接启用 API 会有安全风险。
+
+因此我们需要开启 TLS 加密来保障 Docker API 通信的安全性。通过开启 TLS 防止未经许可的客户端访问服务端节点，保障其系统安全性。
+
+而 Docker API 也适用于在一个 Portainer 示例上来远程管理多台机器，这也是我最初使用这一功能的原因。接下来将介绍如何完成 TLS 的设置，来保障 Docker API 通信的安全性。
+
+### 创建 TLS 证书
+
+脚本链接：<https://img.lisir.me/file/shell/generate_docker_api_pem.sh>
+
+```bash
+# 获取脚本并赋予执行权限
+wget https://img.lisir.me/file/shell/generate_docker_api_pem.sh && chmod +x generate_docker_api_pem.sh
+
+# 执行脚本
+./generate_docker_api_pem.sh
+```
+
+### 开启 Docker API
+
+编辑 docker 配置文件：
+
+```bash
+vim /lib/systemd/system/docker.service
+```
+
+找到 ExecStart 行，在后面添加以下选项：
+
+```bash
+-H=tcp://0.0.0.0:2376 --tlsverify --tlscacert=/root/.docker/certs/ca-docker_api.pem --tlscert=/root/.docker/certs/server-cert-docker_api.pem --tlskey=/root/.docker/certs/server-key-docker_api.pem
+```
+
+执行以下命令重新加载服务并重启 Docker：
+
+```bash
+systemctl daemon-reload && service docker restart
+```
+
+## 配置 Portainer
+
+- 打开 Portainer，进入 Environments。
+- 点击右上角的 Add environment 添加节点，并在随后的向导中选择 API。
+- 将 Environment URL 或者 Docker API URL 中的端口从 2375 改为 2376。
+- 然后将 TLS 的 Switch 打开，上传证书文件即可。
