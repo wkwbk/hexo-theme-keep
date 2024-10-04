@@ -1,0 +1,28 @@
+name: Deploying Hexo project to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # 当 main 分支有 push 行为时触发
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: 检出代码
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # 获取完整历史，以便进行版本控制
+
+      - name: Build and Deploy
+        uses: theme-keep/hexo-deploy-github-pages-action@master # 使用专门部署 Hexo 到 GitHub pages 的 action
+        env:
+          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }} # secret 名
+          PUBLISH_REPOSITORY: ${{ github.repository }} # 公共仓库，格式：GitHub 用户名/仓库名
+          BRANCH: gh-pages # 分支，填 gh-pages 就行
+          PUBLISH_DIR: ./public # 部署 public 目录下的文件
