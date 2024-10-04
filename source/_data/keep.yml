@@ -26,23 +26,6 @@ base_info:
   # Website favicon, You can use local image path or image link
   favicon: https://img.lisir.me/image/my/favicon.png
 
-# ---------------------------------------------------------------------------------------
-# Docs: https://keep-docs.xpoet.cn/basis/configuration-guide/menu.html
-# ---------------------------------------------------------------------------------------
-# If you want to enable a new navigation menu, you need to create a corresponding page
-# e.g. to enable categories, you need to execute `hexo new page categories`
-# Use `||` to set icon for navigation menu, e.g. `home: / || fa-solid fa-home`
-# menu:
-#   home: / || fa-solid fa-home
-#   archives: /archives || fa-solid fa-box-archive
-#   tags: /tags || fa-solid fa-tags
-#   categories: /categories || fa-solid fa-layer-group
-#   links: /links || fa-solid fa-link
-#   about: https://lisir.me || fa-solid fa-user-graduate
-#   # photos: /photos             # || fa-solid fa-image
-#   # tools: /tools               # || fa-solid fa-tools
-#   # ......
-
 menu:
   home: / || fa-solid fa-home
   索引:

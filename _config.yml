@@ -13,7 +13,7 @@ timezone: Asia/Shanghai
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://lisir.me/hexo-theme-keep/
+url: https://lisir.me/hexo-theme-keep
 permalink: posts/:abbrlink/
 permalink_defaults:
 pretty_urls:
@@ -116,8 +116,8 @@ theme: keep
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: git@github.com:wkwbk/blog.git
-  branch: main
+  repo: git@github.com:wkwbk/hexo-theme-keep.git
+  branch: gh-pages
 
 # 站内搜索插件
 ## Docs: https://keep-docs.xpoet.cn/tutorial/configuration-guide/local_search.html

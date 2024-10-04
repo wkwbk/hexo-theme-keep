@@ -346,7 +346,7 @@ abbrlink: 633af0aD
 ```text
 | 左对齐             |                        居中对齐                        | 右对齐 |
 | :----------------- | :----------------------------------------------------: | -----: |
-| **加粗**           |              [插入链接](/posts/633af0aD/)              |   ￥5.7 |
+| **加粗**           |              [插入链接](/hexo-theme-keep/posts/633af0aD/)              |   ￥5.7 |
 | `换行`<br />下一行 | ![插入图片](https://img.lisir.me/image/my/favicon.png) |  ￥10.4 |
 ```
 
@@ -354,7 +354,7 @@ abbrlink: 633af0aD
 
 | 左对齐             |                        居中对齐                        | 右对齐 |
 | :----------------- | :----------------------------------------------------: | -----: |
-| **加粗**           |              [插入链接](/posts/633af0aD/)              |   ￥5.7 |
+| **加粗**           |              [插入链接](/hexo-theme-keep/posts/633af0aD/)              |   ￥5.7 |
 | `换行`<br />下一行 | ![插入图片](https://img.lisir.me/image/my/favicon.png) |  ￥10.4 |
 
 **注释**
@@ -368,10 +368,10 @@ abbrlink: 633af0aD
 **语法**
 
 ```text
-[LISIR](/posts/633af0aD/)
+[LISIR](/hexo-theme-keep/posts/633af0aD/)
 ```
 
-**预览**：[LISIR](/posts/633af0aD/)
+**预览**：[LISIR](/hexo-theme-keep/posts/633af0aD/)
 
 ### 图片
 

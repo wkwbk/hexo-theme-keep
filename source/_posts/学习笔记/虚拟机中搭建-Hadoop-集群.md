@@ -44,7 +44,7 @@ Hadoop 是一个由 Apache 基金会所开发的分布式系统基础架构。�
 
 #### 修改镜像源到国内
 
-[点我查看](/posts/d7a91b5f/)
+[点我查看](/hexo-theme-keep/posts/d7a91b5f/)
 
 #### 安装 Linux 必备工具
 
