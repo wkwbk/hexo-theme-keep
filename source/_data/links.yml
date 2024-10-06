@@ -12,7 +12,7 @@
 
 - name: 小孙同学
   link: https://blog.sunguoqi.com/
-  avatar: https://blog.sunguoqi.com/avatar.webp
+  avatar: https://blog.sunguoqi.com/avatar.png
   description: 路虽远行则将至，事虽难做则必成！
 
 - name: Sianx's Blog
@@ -41,11 +41,6 @@
   link: http://www.zsqblog.top
   avatar: https://pic.imgdb.cn/item/61d9d0022ab3f51d9156c5eb.jpg
   description: I can do all things…
-
-- name: 二兔
-  link: https://blog.juanertu.com
-  avatar: https://blog.juanertu.com/images/avatar.png
-  description: 能与你一起成长，我荣幸之至。
 
 - name: 小嘉的部落格
   link: https://blog.imzjw.cn
