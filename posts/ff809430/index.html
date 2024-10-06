@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="个人博客,个人网站,无可无不可,lisir,wkwbk,Blog,Hexo,Markdown">
+    <meta name="description" content="记住，你什么都不缺，你缺的是从头再来的勇气">
+    <meta name="author" content="LI SIR">
+    
+    <title>
+        
+            使用 WSL 在 Windows 上安装 Linux |
+        
+        LI SIR - Remember me.
+    </title>
+    
+<link rel="stylesheet" href="/hexo-theme-keep/css/style.css">
+
+    
+        <link rel="shortcut icon" href="https://img.lisir.me/image/my/favicon.png">
+    
+    
+<link rel="stylesheet" href="/hexo-theme-keep/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/hexo-theme-keep/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/hexo-theme-keep/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/hexo-theme-keep/font/css/brands.min.css">
+
+    
+        
+            
+                
+<link rel="stylesheet" href="https://npm.elemecdn.com/lxgw-wenkai-webfont/lxgwwenkai-regular.css">
+
+            
+        
+            
+                
+<link rel="stylesheet" href="/hexo-theme-keep/css/custom.css">
+
+            
+        
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"lisir.me","root":"/hexo-theme-keep/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066cc","title":"LI SIR - Remember me.","author":"LI SIR","avatar":"https://img.lisir.me/image/my/avatar.png","logo":"https://img.lisir.me/image/my/favicon.png","favicon":"https://img.lisir.me/image/my/favicon.png"},"menu":{"home":"/ || fa-solid fa-home","索引":{"icon":"fa-solid fa-list","children":[{"archives":"/archives || fa-solid fa-box-archive"},{"tags":"/tags || fa-solid fa-tags"},{"categories":"/categories || fa-solid fa-layer-group"}]},"我的":{"icon":"fa-solid fa-user","children":[{"links":"/links || fa-solid fa-link"},{"about":"https://lisir.me || fa-solid fa-user-graduate"}]}},"first_screen":{"enable":true,"background_img":"https://img.lisir.me/image/website/bg.svg","background_img_dark":"https://img.lisir.me/image/website/bg.svg","description":"我亦无他，惟手熟尔","hitokoto":false},"social_contact":{"enable":true,"links":{"github":"https://github.com/wkwbk","email":"lisir.me@outlook.com","telegram":"https://t.me/lisir_me","weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"facebook":null}},"scroll":{"progress_bar":true,"percent":true,"hide_header":true},"home":{"announcement":"2024年8月28日：主题已更新至 v4.2.3","category":true,"tag":true,"post_datetime":"updated"},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":true,"reward":{"enable":false,"img_link":null,"text":null,"icon":null}},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"obsidian"},"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"local_search":{"enable":true,"preload":true},"comment":{"enable":true,"use":null,"valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":"https://twikoo.libk.top","region":null,"version":"1.6.38"},"waline":{"server_url":null,"reaction":false,"version":"3.2.1"},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":true},"lazyload":{"enable":true},"cdn":{"enable":false,"provider":"cdnjs"},"pjax":{"enable":true},"footer":{"since":2020,"word_count":true,"site_deploy":{"enable":false,"provider":"github","url":null},"record":{"enable":false,"list":[{"code":null,"link":null}]}},"inject":{"enable":true,"css":["https://npm.elemecdn.com/lxgw-wenkai-webfont/lxgwwenkai-regular.css","/css/custom.css"],"js":["/js/custom.js"]},"root":"/hexo-theme-keep","source_data":{"links":[{"title":"推荐"},{"name":"Heo","link":"https://blog.zhheo.com","avatar":"https://blog.zhheo.com/img/avatar.png","description":"爱折腾的设计师"},{"name":"Akilarの糖果屋","link":"https://akilar.top","avatar":"https://npm.elemecdn.com/akilar-candyassets/image/siteicon/favicon.png","description":"期待您的光临！"},{"name":"小孙同学","link":"https://blog.sunguoqi.com/","avatar":"https://blog.sunguoqi.com/avatar.png","description":"路虽远行则将至，事虽难做则必成！"},{"name":"Sianx's Blog","link":"https://sianx.com","avatar":"https://npm.elemecdn.com/picture-sianx@1.0.0/Blog/logo.png","description":"总之岁月漫长, 然而值得等待。"},{"title":"伙伴"},{"name":"山暮云秋","link":"https://www.muyun.space","avatar":"https://cdn.jsdelivr.net/gh/ShanMuYunQiu/Image/info/user.jpg","description":"千里关山边草暮，一星烽火朔云秋"},{"name":"贰猹的小窝","link":"https://noionion.top","avatar":"https://pub-noionion.oss-cn-hangzhou.aliyuncs.com/head.jpg","description":"用这生命中的每一秒，给自己一个不后悔的未来"},{"name":"Ordis","link":"https://imbhj.com","avatar":"https://imbhj.com/img/avatar1.png","description":"船到桥头自然直，柳暗花明又一村"},{"name":"不如吃茶去","link":"http://www.zsqblog.top","avatar":"https://pic.imgdb.cn/item/61d9d0022ab3f51d9156c5eb.jpg","description":"I can do all things…"},{"name":"小嘉的部落格","link":"https://blog.imzjw.cn","avatar":"https://npm.elemecdn.com/nanshen/avatar.jpg","description":"一个爱折腾的Java开发工程师"},{"name":"Joyer的博客","link":"https://blog.joyer.top","avatar":"https://blog.joyer.top/img/favicon.png","description":"一只会唱Lahee~的龙"}]},"version":"4.2.3"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/hexo-theme-keep/atom.xml" title="LI SIR" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+
+<main class="page-container border-box">
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left flex-start border-box">
+            
+                <a class="logo-image border-box" href="/hexo-theme-keep/">
+                    <img src="https://img.lisir.me/image/my/favicon.png">
+                </a>
+            
+            <a class="site-name border-box" href="/hexo-theme-keep/">
+               LI SIR - Remember me.
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc border-box">
+                <ul class="menu-list border-box">
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/hexo-theme-keep/">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-home"></i>
+                                
+                                首页
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box has-sub-menu">
+                            <a class="menu-text-color border-box" href="javascript:void(0);">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-list"></i>
+                                
+                                索引
+                                
+                                    <i class="menu-text-color collapse-icon fa-solid fa-angle-down"></i>
+                                
+                            </a>
+                            
+                                <ul class="sub-menu-list border-box">
+                                    
+                                        
+                                        <li class="sub-menu-item border-box ">
+                                            <a class="menu-text-color border-box flex-start" href="/hexo-theme-keep/archives">
+                                                
+                                                    <i class="menu-text-color sub-menu-icon fa-solid fa-box-archive"></i>
+                                                
+                                                归档
+                                            </a>
+                                        </li>
+                                    
+                                        
+                                        <li class="sub-menu-item border-box ">
+                                            <a class="menu-text-color border-box flex-start" href="/hexo-theme-keep/tags">
+                                                
+                                                    <i class="menu-text-color sub-menu-icon fa-solid fa-tags"></i>
+                                                
+                                                标签
+                                            </a>
+                                        </li>
+                                    
+                                        
+                                        <li class="sub-menu-item border-box ">
+                                            <a class="menu-text-color border-box flex-start" href="/hexo-theme-keep/categories">
+                                                
+                                                    <i class="menu-text-color sub-menu-icon fa-solid fa-layer-group"></i>
+                                                
+                                                分类
+                                            </a>
+                                        </li>
+                                    
+                                </ul>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box has-sub-menu">
+                            <a class="menu-text-color border-box" href="javascript:void(0);">
+                                
+                                    <i class="menu-text-color menu-icon fa-solid fa-user"></i>
+                                
+                                我的
+                                
+                                    <i class="menu-text-color collapse-icon fa-solid fa-angle-down"></i>
+                                
+                            </a>
+                            
+                                <ul class="sub-menu-list border-box">
+                                    
+                                        
+                                        <li class="sub-menu-item border-box ">
+                                            <a class="menu-text-color border-box flex-start" href="/hexo-theme-keep/links">
+                                                
+                                                    <i class="menu-text-color sub-menu-icon fa-solid fa-link"></i>
+                                                
+                                                友链
+                                            </a>
+                                        </li>
+                                    
+                                        
+                                        <li class="sub-menu-item border-box ">
+                                            <a class="menu-text-color border-box flex-start" href="https://lisir.me">
+                                                
+                                                    <i class="menu-text-color sub-menu-icon fa-solid fa-user-graduate"></i>
+                                                
+                                                关于
+                                            </a>
+                                        </li>
+                                    
+                                </ul>
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="menu-text-color fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile border-box flex-start">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list border-box">
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/hexo-theme-keep/">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-home"></i>
+                                </span>
+                            
+                            首页
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box has-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="javascript:void(0);">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-list"></i>
+                                </span>
+                            
+                            索引
+                        </a>
+                        
+                            <i class="right-side collapse-icon fa-solid fa-angle-left"></i>
+                        
+                    </label>
+                    
+                        <ul class="drawer-sub-menu-list border-box">
+                            
+                                
+                                <li class="sub-menu-item border-box">
+                                    <a class="drawer-menu-text-color border-box flex-start" href="/hexo-theme-keep/archives">
+                                        
+                                            <span class="sub-menu-icon-wrap border-box flex-center">
+                                                <i class="drawer-menu-text-color sub-menu-icon fa-solid fa-box-archive"></i>
+                                            </span>
+                                        
+                                        归档
+                                    </a>
+                                </li>
+                            
+                                
+                                <li class="sub-menu-item border-box">
+                                    <a class="drawer-menu-text-color border-box flex-start" href="/hexo-theme-keep/tags">
+                                        
+                                            <span class="sub-menu-icon-wrap border-box flex-center">
+                                                <i class="drawer-menu-text-color sub-menu-icon fa-solid fa-tags"></i>
+                                            </span>
+                                        
+                                        标签
+                                    </a>
+                                </li>
+                            
+                                
+                                <li class="sub-menu-item border-box">
+                                    <a class="drawer-menu-text-color border-box flex-start" href="/hexo-theme-keep/categories">
+                                        
+                                            <span class="sub-menu-icon-wrap border-box flex-center">
+                                                <i class="drawer-menu-text-color sub-menu-icon fa-solid fa-layer-group"></i>
+                                            </span>
+                                        
+                                        分类
+                                    </a>
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box has-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="javascript:void(0);">
+                            
+                                <span class="menu-icon-wrap border-box flex-center">
+                                    <i class="drawer-menu-text-color menu-icon fa-solid fa-user"></i>
+                                </span>
+                            
+                            我的
+                        </a>
+                        
+                            <i class="right-side collapse-icon fa-solid fa-angle-left"></i>
+                        
+                    </label>
+                    
+                        <ul class="drawer-sub-menu-list border-box">
+                            
+                                
+                                <li class="sub-menu-item border-box">
+                                    <a class="drawer-menu-text-color border-box flex-start" href="/hexo-theme-keep/links">
+                                        
+                                            <span class="sub-menu-icon-wrap border-box flex-center">
+                                                <i class="drawer-menu-text-color sub-menu-icon fa-solid fa-link"></i>
+                                            </span>
+                                        
+                                        友链
+                                    </a>
+                                </li>
+                            
+                                
+                                <li class="sub-menu-item border-box">
+                                    <a class="drawer-menu-text-color border-box flex-start" href="https://lisir.me">
+                                        
+                                            <span class="sub-menu-icon-wrap border-box flex-center">
+                                                <i class="drawer-menu-text-color sub-menu-icon fa-solid fa-user-graduate"></i>
+                                            </span>
+                                        
+                                        关于
+                                    </a>
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        使用 WSL 在 Windows 上安装 Linux
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="https://img.lisir.me/image/my/avatar.png">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">LI SIR</span>
+                                
+                                    <span class="author-badge">Lv4</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2022-12-16 09:23:53</span>
+            </span>
+
+            <span class="meta-info-item post-update-date">
+                <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                <span class="datetime" data-updated="Mon Sep 02 2024 06:10:50 GMT+0000">2024-09-02 14:10:50</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/hexo-theme-keep/categories/%E5%A4%87%E5%BF%98%E5%BD%95/">备忘录</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="post-tag meta-info-item border-box">
+                <ul class="post-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/hexo-theme-keep/tags/Linux/">Linux</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/hexo-theme-keep/tags/WSL/">WSL</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+            <span class="meta-info-item post-wordcount">
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>772 字</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-min2read">
+                <i class="icon fas fa-clock"></i>&nbsp;<span>3 分钟</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body ">
+                    
+                        <div class="post-aging-tips"
+                             data-update-date="Mon Sep 02 2024 14:10:50 GMT+0800"
+                             data-aging-days="90"
+                        >
+                            <i class="fa-solid fa-circle-exclamation"></i>本文距离上次更新已过去 <span class="days">0</span> 天，部分内容可能已经过时，请注意甄别。
+                        </div>
+                    
+
+                    
+                         <p><a class="link"   target="_blank" rel="noopener" href="https://github.com/wsldl-pg/CentWSL" >https://github.com/wsldl-pg/CentWSL<i class="fas fa-external-link-alt"></i></a><br><a class="link"   target="_blank" rel="noopener" href="https://github.com/mishamosher/CentOS-WSL" >https://github.com/mishamosher/CentOS-WSL<i class="fas fa-external-link-alt"></i></a><br><a class="link"   target="_blank" rel="noopener" href="https://github.com/yosukes-dev/RHWSL" >https://github.com/yosukes-dev/RHWSL<i class="fas fa-external-link-alt"></i></a></p>
+<span id="more"></span>
+
+<hr>
+<h2 id="先决条件"><a href="#先决条件" class="headerlink" title="先决条件"></a>先决条件</h2><p>必须运行 Windows 10 版本 2004 及更高版本（内部版本 19041 及更高版本）或 Windows 11，检查 Windows 版本及内部版本号：按 Windows 徽标键 + R，然后键入“winver”，选择“确定”</p>
+<p>需要在BIOS中开启虚拟化技术，检查是否启用虚拟化：同时按住 CTRL、Shift 和 ESC 键打开任务管理器，选择“性能”&gt;“CPU”</p>
+<p>启用 Windows 子系统：“控制面板”&gt;“程序和功能”&gt;“启用或关闭 Windows 功能”&gt;勾选“适用于 Linux 的 Windows 子系统”</p>
+<h2 id="WSL-的基本命令"><a href="#WSL-的基本命令" class="headerlink" title="WSL 的基本命令"></a>WSL 的基本命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装 WSL 命令</span></span><br><span class="line">wsl --install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新 WSL</span></span><br><span class="line">wsl --update</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查正在运行的 WSL 版本</span></span><br><span class="line">wsl -l -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查 WSL 状态</span></span><br><span class="line">wsl --status</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关闭</span></span><br><span class="line">wsl --shutdown</span><br></pre></td></tr></table></figure>
+
+<h2 id="设置WSL的默认版本"><a href="#设置WSL的默认版本" class="headerlink" title="设置WSL的默认版本"></a>设置WSL的默认版本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wsl --set-default-version &lt;Version&gt;</span><br><span class="line"><span class="comment"># 若要将默认版本设置为 WSL 1 或 WSL 2，将 &lt;Version&gt; 替换为 1 或 2。</span></span><br><span class="line"><span class="comment"># 例如 wsl --set-default-version 2</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="设置默认-Linux-发行版"><a href="#设置默认-Linux-发行版" class="headerlink" title="设置默认 Linux 发行版"></a>设置默认 Linux 发行版</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wsl --set-default &lt;DistributionName&gt;</span><br><span class="line"><span class="comment"># 将 &lt;DistributionName&gt; 替换为要使用的 Linux 发行版的名称。</span></span><br><span class="line"><span class="comment"># 例如 wsl --set-default CentOS8</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="要设置与-wsl-命令一起使用的默认-Linux-发行版"><a href="#要设置与-wsl-命令一起使用的默认-Linux-发行版" class="headerlink" title="要设置与 wsl 命令一起使用的默认 Linux 发行版"></a>要设置与 wsl 命令一起使用的默认 Linux 发行版</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wsl --setdefault &lt;DistributionName&gt;</span><br><span class="line"><span class="comment"># 将 &lt;DistributionName&gt; 替换为要使用的 Linux 发行版的名称。</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="将-WSL-版本设置为-1-或-2"><a href="#将-WSL-版本设置为-1-或-2" class="headerlink" title="将 WSL 版本设置为 1 或 2"></a>将 WSL 版本设置为 1 或 2</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wsl --set-version &lt;DistributionName&gt; &lt;Version&gt;</span><br><span class="line"><span class="comment"># 若要指定运行 Linux 发行版的 WSL 版本</span></span><br><span class="line"><span class="comment"># 将 &lt;DistributionName&gt; 替换为 Linux 发行版的名称，并将 &lt;Version&gt; 替换为 1 或 2。</span></span><br><span class="line"><span class="comment"># 例如 wsl --set-version CentOS8 2 会将 CentOS8 发行版设置为使用 WSL 2</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="更改发行版的默认用户"><a href="#更改发行版的默认用户" class="headerlink" title="更改发行版的默认用户"></a>更改发行版的默认用户</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;DistributionName&gt; config --default-user &lt;Username&gt;</span><br><span class="line"><span class="comment"># 更改用于发行版登录的默认用户。 用户必须已经存在于发行版中才能成为默认用户。</span></span><br><span class="line"><span class="comment"># 例如 CentOS8 config --default-user root 会将 CentOS8 发行版的默认用户更改为“root”用户。</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 关闭子系统</span></span><br><span class="line">net stop LxssManager</span><br><span class="line"></span><br><span class="line"><span class="comment"># 终止子系统</span></span><br><span class="line">wsl --terminate &lt;DistributionName&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注销或卸载子系统</span></span><br><span class="line">wsl --unregister &lt;DistributionName&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导出系统镜像</span></span><br><span class="line">wsl --<span class="built_in">export</span> &lt;DistributionName&gt; &lt;镜像存放路径&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将 &lt;DistributionName&gt; 替换为要使用的 Linux 发行版的名称。</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="由于是最小安装，一些常用的命令没有，无法使用，可以使用-yum-命令进行安装，以方便使用"><a href="#由于是最小安装，一些常用的命令没有，无法使用，可以使用-yum-命令进行安装，以方便使用" class="headerlink" title="由于是最小安装，一些常用的命令没有，无法使用，可以使用 yum 命令进行安装，以方便使用"></a>由于是最小安装，一些常用的命令没有，无法使用，可以使用 yum 命令进行安装，以方便使用</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yum -y update <span class="comment">#更新系统中已有的软件包</span></span><br><span class="line">yum -y install gcc gcc-c++ make wget <span class="comment">#安装gcc、gcc+、wget等</span></span><br><span class="line">yum -y install openssh-clients openssh-server <span class="comment">#安装ssh相关</span></span><br><span class="line">yum -y install vim <span class="comment">#安装vim编辑器</span></span><br><span class="line">yum -y install tar <span class="comment">#安装压缩解压缩工具</span></span><br><span class="line">yum -y install net-tools <span class="comment">#安装网络工具</span></span><br><span class="line">yum -y install ncurses <span class="comment">#字符终端处理库</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="解决-Centos8-yum-官方源下线后无法使用问题"><a href="#解决-Centos8-yum-官方源下线后无法使用问题" class="headerlink" title="解决 Centos8 yum 官方源下线后无法使用问题"></a>解决 Centos8 yum 官方源下线后无法使用问题</h2><pre><code class="bash"># 进入配置文件夹
+mv /etc/yum.repos.d/ /etc/yum.repos.d_bak &amp;&amp; mkdir /etc/yum.repos.d/
+wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-vault-8.5.2111.repo
+
+# 如果你没有安装wget，也可以用下面命令
+curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-vault-8.5.2111.repo
+
+# 运行 dnf makecache 生成缓存
+dnf makecache
+</code></pre>
+
+                    
+                </div>
+
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                使用 WSL 在 Windows 上安装 Linux
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                posts/ff809430/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">LI SIR</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2022-12-16 09:23</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank">
+                        
+                            <i class="fa-brands fa-creative-commons"></i>
+                            <i class="fa-brands fa-creative-commons-by"></i>
+                            <i class="fa-brands fa-creative-commons-nc"></i>
+                            <i class="fa-brands fa-creative-commons-sa"></i>
+                        
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/hexo-theme-keep/tags/Linux/">Linux</a>
+                                    </li>
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/hexo-theme-keep/tags/WSL/">WSL</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                            <div class="post-share-container border-box">
+    <ul class="share-list-wrap border-box">
+        <li class="qq share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到 QQ"
+        >
+            <i class="fa-brands fa-qq"></i>
+        </li>
+        <li class="wechat share-item border-box flex-center tooltip tooltip-img"
+            data-tooltip-content="分享到微信"
+            data-tooltip-img-tip="微信扫一扫"
+            data-tooltip-img-style="background-color: #fff; top: -10px; padding: 0.6rem 0.6rem 0.1rem 0.6rem;"
+        >
+            <i class="fa-brands fa-weixin"></i>
+        </li>
+        <li class="weibo share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到微博"
+        >
+            <i class="fa-brands fa-weibo"></i>
+        </li>
+    </ul>
+</div>
+
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                            <div class="prev-post">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/hexo-theme-keep/posts/14069f3b/"
+                                   title="Docker 管理工具 Portainer"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">Docker 管理工具 Portainer</span>
+                                        <span class="post-nav-item">上一篇</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/hexo-theme-keep/posts/aaf29273/"
+                                   title="Java 环境变量配置"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">Java 环境变量配置</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%88%E5%86%B3%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">先决条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WSL-%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">WSL 的基本命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AEWSL%E7%9A%84%E9%BB%98%E8%AE%A4%E7%89%88%E6%9C%AC"><span class="nav-number">3.</span> <span class="nav-text">设置WSL的默认版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4-Linux-%E5%8F%91%E8%A1%8C%E7%89%88"><span class="nav-number">4.</span> <span class="nav-text">设置默认 Linux 发行版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A6%81%E8%AE%BE%E7%BD%AE%E4%B8%8E-wsl-%E5%91%BD%E4%BB%A4%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8%E7%9A%84%E9%BB%98%E8%AE%A4-Linux-%E5%8F%91%E8%A1%8C%E7%89%88"><span class="nav-number">5.</span> <span class="nav-text">要设置与 wsl 命令一起使用的默认 Linux 发行版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86-WSL-%E7%89%88%E6%9C%AC%E8%AE%BE%E7%BD%AE%E4%B8%BA-1-%E6%88%96-2"><span class="nav-number">6.</span> <span class="nav-text">将 WSL 版本设置为 1 或 2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E5%8F%91%E8%A1%8C%E7%89%88%E7%9A%84%E9%BB%98%E8%AE%A4%E7%94%A8%E6%88%B7"><span class="nav-number">7.</span> <span class="nav-text">更改发行版的默认用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4"><span class="nav-number">8.</span> <span class="nav-text">其他命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%B1%E4%BA%8E%E6%98%AF%E6%9C%80%E5%B0%8F%E5%AE%89%E8%A3%85%EF%BC%8C%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4%E6%B2%A1%E6%9C%89%EF%BC%8C%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8%EF%BC%8C%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8-yum-%E5%91%BD%E4%BB%A4%E8%BF%9B%E8%A1%8C%E5%AE%89%E8%A3%85%EF%BC%8C%E4%BB%A5%E6%96%B9%E4%BE%BF%E4%BD%BF%E7%94%A8"><span class="nav-number">9.</span> <span class="nav-text">由于是最小安装，一些常用的命令没有，无法使用，可以使用 yum 命令进行安装，以方便使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3-Centos8-yum-%E5%AE%98%E6%96%B9%E6%BA%90%E4%B8%8B%E7%BA%BF%E5%90%8E%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8%E9%97%AE%E9%A2%98"><span class="nav-number">10.</span> <span class="nav-text">解决 Centos8 yum 官方源下线后无法使用问题</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="copyright-info info-item">
+        &copy;&nbsp;<span>2020</span>&nbsp;-&nbsp;2024
+        
+            &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/hexo-theme-keep/">LI SIR</a>
+        
+    </div>
+
+    <div class="theme-info info-item">
+        由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;&&nbsp;主题&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+    </div>
+
+    
+
+    
+        <div class="count-info info-item">
+            
+                <span class="count-item border-box word">
+                    <span class="item-type border-box">总字数</span>
+                    <span class="item-value border-box word">119.5k</span>
+                </span>
+            
+
+            
+                <span class="count-item border-box uv">
+                    <span class="item-type border-box">访客数</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-item border-box pv">
+                    <span class="item-type border-box">访问量</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    
+
+    
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="post-tools-list border-box">
+        <!-- PC encrypt again -->
+        
+
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <!-- toggle mode -->
+        
+            <li class="tools-item tool-toggle-theme-mode flex-center">
+                <i class="fas fa-moon"></i>
+            </li>
+        
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        <!-- to bottom -->
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%88%E5%86%B3%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">先决条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WSL-%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">WSL 的基本命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AEWSL%E7%9A%84%E9%BB%98%E8%AE%A4%E7%89%88%E6%9C%AC"><span class="nav-number">3.</span> <span class="nav-text">设置WSL的默认版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4-Linux-%E5%8F%91%E8%A1%8C%E7%89%88"><span class="nav-number">4.</span> <span class="nav-text">设置默认 Linux 发行版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A6%81%E8%AE%BE%E7%BD%AE%E4%B8%8E-wsl-%E5%91%BD%E4%BB%A4%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8%E7%9A%84%E9%BB%98%E8%AE%A4-Linux-%E5%8F%91%E8%A1%8C%E7%89%88"><span class="nav-number">5.</span> <span class="nav-text">要设置与 wsl 命令一起使用的默认 Linux 发行版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86-WSL-%E7%89%88%E6%9C%AC%E8%AE%BE%E7%BD%AE%E4%B8%BA-1-%E6%88%96-2"><span class="nav-number">6.</span> <span class="nav-text">将 WSL 版本设置为 1 或 2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E5%8F%91%E8%A1%8C%E7%89%88%E7%9A%84%E9%BB%98%E8%AE%A4%E7%94%A8%E6%88%B7"><span class="nav-number">7.</span> <span class="nav-text">更改发行版的默认用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4"><span class="nav-number">8.</span> <span class="nav-text">其他命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%B1%E4%BA%8E%E6%98%AF%E6%9C%80%E5%B0%8F%E5%AE%89%E8%A3%85%EF%BC%8C%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4%E6%B2%A1%E6%9C%89%EF%BC%8C%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8%EF%BC%8C%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8-yum-%E5%91%BD%E4%BB%A4%E8%BF%9B%E8%A1%8C%E5%AE%89%E8%A3%85%EF%BC%8C%E4%BB%A5%E6%96%B9%E4%BE%BF%E4%BD%BF%E7%94%A8"><span class="nav-number">9.</span> <span class="nav-text">由于是最小安装，一些常用的命令没有，无法使用，可以使用 yum 命令进行安装，以方便使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3-Centos8-yum-%E5%AE%98%E6%96%B9%E6%BA%90%E4%B8%8B%E7%BA%BF%E5%90%8E%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8%E9%97%AE%E9%A2%98"><span class="nav-number">10.</span> <span class="nav-text">解决 Centos8 yum 官方源下线后无法使用问题</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+
+
+<!-- common js -->
+
+<script src="/hexo-theme-keep/js/utils.js"></script>
+
+<script src="/hexo-theme-keep/js/header-shrink.js"></script>
+
+<script src="/hexo-theme-keep/js/back2top.js"></script>
+
+<script src="/hexo-theme-keep/js/toggle-theme.js"></script>
+
+<script src="/hexo-theme-keep/js/code-block.js"></script>
+
+<script src="/hexo-theme-keep/js/main.js"></script>
+
+<script src="/hexo-theme-keep/js/libs/anime.min.js"></script>
+
+
+<!-- local search -->
+
+    
+<script src="/hexo-theme-keep/js/local-search.js"></script>
+
+
+
+<!-- lazyload -->
+
+    
+<script src="/hexo-theme-keep/js/lazyload.js"></script>
+
+
+
+<div class="pjax">
+    <!-- home page -->
+    
+
+    <!-- post page -->
+    
+        <!-- post-helper -->
+        
+<script src="/hexo-theme-keep/js/post/post-helper.js"></script>
+
+
+        <!-- toc -->
+        
+            
+<script src="/hexo-theme-keep/js/post/toc.js"></script>
+
+        
+
+        <!-- copyright-info -->
+        
+            
+<script src="/hexo-theme-keep/js/post/copyright-info.js"></script>
+
+        
+
+        <!-- share -->
+        
+            
+<script src="/hexo-theme-keep/js/post/share.js"></script>
+
+        
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+    
+<script src="/hexo-theme-keep/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart()
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd()
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'))
+            KEEP.initExecute()
+        });
+    });
+</script>
+
+
+
+
+    
+        
+            
+<script class="custom-inject-js" src="/hexo-theme-keep/js/custom.js" data-pjax></script>
+
+        
+    
+
+</body>
+</html>
